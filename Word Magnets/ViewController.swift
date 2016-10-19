@@ -15,7 +15,7 @@ class ViewController: UIViewController {
 
         let myArray = ["facebook", "android", "blogger", "twitter"]
         
-        let screenSize = UIScreen.mainScreen().bounds
+        let screenSize = UIScreen.main.bounds
 
         for image in myArray {
             let theImage = UIImage(named: image)
@@ -26,18 +26,18 @@ class ViewController: UIViewController {
             self.view.addSubview(imageView)
             let panGesture = UIPanGestureRecognizer(target: self, action: #selector(handlePanGesture(_:)))
             imageView.addGestureRecognizer(panGesture)
-            imageView.userInteractionEnabled = true
+            imageView.isUserInteractionEnabled = true
         }
 
     }
     
-    func handlePanGesture(panGesture: UIPanGestureRecognizer) {
-        let translation = panGesture.translationInView(view)
-        panGesture.setTranslation(CGPointZero, inView: view)
+    func handlePanGesture(_ panGesture: UIPanGestureRecognizer) {
+        let translation = panGesture.translation(in: view)
+        panGesture.setTranslation(CGPoint.zero, in: view)
         let gambar = panGesture.view as! UIImageView
         gambar.center = CGPoint(x: gambar.center.x+translation.x, y: gambar.center.y+translation.y)
         switch panGesture.state {
-        case .Ended:
+        case .ended:
             let diffPosX = Int(gambar.center.x+translation.x)%50
             let diffPosY = Int(gambar.center.y+translation.y)%50
 //            print("diffX: \(diffPosX), diffY: \(diffPosY)")
@@ -62,7 +62,7 @@ class ViewController: UIViewController {
     }
 
     // sembunyikan status bar (sinyal operator, baterai, jam, dll.)
-    override func prefersStatusBarHidden() -> Bool {
+    override var prefersStatusBarHidden : Bool {
         return true
     }
 
